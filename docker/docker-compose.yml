@@ -1,0 +1,74 @@
+version: '3.4'
+services:
+  devdb:
+    image: mariadb:10.9.5
+    container_name: devdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ceres
+      MYSQL_USER: ceres
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${PWD}/data/mariadb/dev:/var/lib/mysql
+
+  testdb:
+    image: mariadb:10.9.5
+    container_name: testdb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ceres
+      MYSQL_USER: ceres
+    networks:
+      - test-backend
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${PWD}/data/mariadb/test:/var/lib/mysql
+
+  proddb:
+    image: mariadb:10.9.5
+    container_name: proddb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PROD_DB_ROOT_USER}
+      MYSQL_DATABASE: ceres
+      MYSQL_USER: ceres
+    networks:
+      - backend
+    restart: on-failure
+    ports:
+      - "3307:3306"
+    volumes:
+      - ${PWD}/data/mariadb/prod:/var/lib/mysql
+
+  dev-ingestor:
+    container_name: ingestor
+    environment:
+      - spring.profiles.active=dev
+    image: officialyinsane.org/ceres/ingestor:latest
+    volumes:
+      - ./data/unknown:/tmp/ingestor/unknown:rw
+      - ./data/problems:/tmp/ingestor/problems:rw
+
+  stag-ingestor:
+    container_name: ingestor
+    environment:
+      - spring.profiles.active=stag
+    image: officialyinsane.org/ceres/ingestor:latest
+    volumes:
+      - ./data/unknown:/tmp/ingestor/unknown:rw
+      - ./data/problems:/tmp/ingestor/problems:rw
+
+  prod-ingestor:
+    container_name: ingestor
+    environment:
+      - spring.profiles.active=prod
+      - spring.datasource.password=${PROD_DB_INGESTOR_PASSWORD}
+    image: officialyinsane.org/ceres/ingestor:latest
+    volumes:
+      - ./data/unknown:/tmp/ingestor/unknown:rw
+      - ./data/problems:/tmp/ingestor/problems:rw
+
+networks:
+  test-backend:
+  backend:

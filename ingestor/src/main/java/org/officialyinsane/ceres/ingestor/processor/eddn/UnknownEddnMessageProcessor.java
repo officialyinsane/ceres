@@ -1,6 +1,7 @@
-package org.officialyinsane.ceres.ingestor.processor;
+package org.officialyinsane.ceres.ingestor.processor.eddn;
 
 import lombok.extern.slf4j.Slf4j;
+import org.officialyinsane.ceres.ingestor.processor.eddn.EddnMessageProcessor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
