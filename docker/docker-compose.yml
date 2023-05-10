@@ -24,7 +24,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ${PWD}/data/mariadb/test:/var/lib/mysql
+      - ${PWD}/data/mariadb-stag/test:/var/lib/mysql
 
   proddb:
     image: mariadb:10.9.5
@@ -39,7 +39,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - ${PWD}/data/mariadb/prod:/var/lib/mysql
+      - ${PWD}/data/mariadb-prod/prod:/var/lib/mysql
 
   dev-ingestor:
     container_name: ingestor
@@ -55,6 +55,8 @@ services:
     environment:
       - spring.profiles.active=stag
     image: officialyinsane.org/ceres/ingestor:latest
+    networks:
+      - test-backend
     volumes:
       - ./data/unknown:/tmp/ingestor/unknown:rw
       - ./data/problems:/tmp/ingestor/problems:rw
