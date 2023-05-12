@@ -1,6 +1,7 @@
 package org.officialyinsane.ceres.ingestor.processor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.officialyinsane.ceres.ingestor.processor.eddn.EddnMessageDifferenceProcessor;
 import org.officialyinsane.ceres.ingestor.processor.eddn.EddnMessageProcessor;
 import org.officialyinsane.ceres.ingestor.processor.eddn.UnknownEddnMessageProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class IngestionProcessor {
 
     @Autowired
     private List<EddnMessageProcessor> processors;
+
+    @Autowired
+    private EddnMessageDifferenceProcessor differenceProcessor;
 
     @Autowired
     private ExceptionProcessor exceptionProcessor;
@@ -30,6 +34,7 @@ public class IngestionProcessor {
     private void process(String name, String version, String input) {
         EddnMessageProcessor processor = getProcessorFor(name, version);
         try {
+            differenceProcessor.process(name, version, input);
             processor.process(name, version, input);
         } catch (Exception e) {
             exceptionProcessor.process(input, e);

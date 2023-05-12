@@ -11,11 +11,11 @@ import static java.util.stream.Collectors.toList;
 
 @Builder
 @Data
-public class Route {
+public class Route extends AbstractEddnEntity{
 
     private List<Star> stars;
 
-    public static Route fromArray(JsonArray hops) {
+    public static Route fromArray(JsonArray hops) throws Exception {
         return Route.builder()
                 .stars(hops.asList().stream()
                         .map(JsonElement::getAsJsonObject)

@@ -40,7 +40,7 @@ public class ExceptionProcessor {
         buf.append(",\"error\":{")
                 .append("\"message\":\"")
                 .append(e.getLocalizedMessage())
-                .append("\"");
+                .append("\"},\"stacktrace\":{");
         stream(e.getStackTrace())
                 .map(el -> "\"class\":\"" + el.getClassName() + "\",\"line\":\"" + el.getLineNumber() + "\"")
                 .forEach(buf::append);
@@ -65,7 +65,7 @@ public class ExceptionProcessor {
 
             return output.toString();
         } catch (NoSuchAlgorithmException nsae) {
-            log.error("Unable to get digest", e);
+            log.error("Unable to get digest", nsae);
         }
         return "wtf";
     }

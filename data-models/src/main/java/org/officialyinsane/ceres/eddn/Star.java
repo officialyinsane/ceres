@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class Star {
+public class Star extends AbstractEddnEntity {
 
     private String starClass;
     private StarPos starPos;

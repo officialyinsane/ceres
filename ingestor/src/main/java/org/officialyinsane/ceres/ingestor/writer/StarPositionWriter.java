@@ -15,6 +15,7 @@ public class StarPositionWriter {
     private StarPositionRepository repository;
 
     public void write(Star star) throws Exception {
+        log.info("Saving {}", star);
         repository.save(StarPosition.builder()
                 .systemAddress(star.getSystemAddress())
                 .name(star.getStarSystem())

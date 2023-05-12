@@ -7,5 +7,5 @@ create table `systems` (
     `y` float not null,
     `z` float not null,
     `name` varchar(50) null,
-    `starClass` varchar(2) null
+    `starClass` varchar(3) null
 )

@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Builder
 @Data
-public class NavBeaconScan_1 { // TODO: Other properties
+public class NavBeaconScan_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private String systemName;
     private long systemAddress;
     private StarPos position;
 
-    public static NavBeaconScan_1 fromJsonObject(JsonObject obj) {
+    public static NavBeaconScan_1 fromJsonObject(JsonObject obj) throws Exception {
         return NavBeaconScan_1.builder() // TODO: Other properties
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))

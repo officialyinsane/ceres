@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Builder
 @Data
-public class CodexEntry_1 { // TODO: Other properties
+public class CodexEntry_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private String bodyName;
     private BigDecimal latitude;
@@ -17,14 +17,15 @@ public class CodexEntry_1 { // TODO: Other properties
     private long systemAddress;
     private StarPos position;
 
-    public static CodexEntry_1 fromJsonObject(JsonObject obj) {
+    public static CodexEntry_1 fromJsonObject(JsonObject obj) throws Exception {
         return CodexEntry_1.builder() // TODO: Other properties
-                .bodyName(obj.get("BodyName").getAsString())
-                .latitude(obj.get("Latitude").getAsBigDecimal())
-                .latitude(obj.get("Logitude").getAsBigDecimal())
+                .bodyName(getAsString(obj, "BodyName", null))
+                .latitude(getAsBigDecimal(obj, "Latitude", null))
+                .latitude(getAsBigDecimal(obj, "Longitude", null))
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))
                 .systemName(obj.get("System").getAsString())
                 .build();
     }
+
 }

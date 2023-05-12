@@ -1,0 +1,6 @@
+.idea/
+
+/docker/.env
+/docker/data/
+
+ingestor/target

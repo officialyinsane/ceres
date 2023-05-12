@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Builder
 @Data
-public class StarPos {
+public class StarPos extends AbstractEddnEntity {
 
     private BigDecimal x;
     private BigDecimal y;

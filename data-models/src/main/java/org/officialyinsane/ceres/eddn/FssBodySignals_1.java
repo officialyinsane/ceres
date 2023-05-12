@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Builder
 @Data
-public class FssBodySignals_1 { // TODO: Other properties
+public class FssBodySignals_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private String systemName;
     private long systemAddress;
     private StarPos position;
 
-    public static FssBodySignals_1 fromJsonObject(JsonObject obj) {
+    public static FssBodySignals_1 fromJsonObject(JsonObject obj) throws Exception {
         return FssBodySignals_1.builder() // TODO: Other properties
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))

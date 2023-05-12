@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 
 @Builder
 @Data
-public class FssAllBodiesFound_1 { // TODO: Other properties
+public class FssAllBodiesFound_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private String systemName;
     private long systemAddress;
     private StarPos position;
 
-    public static FssAllBodiesFound_1 fromJsonObject(JsonObject obj) {
+    public static FssAllBodiesFound_1 fromJsonObject(JsonObject obj) throws Exception {
         return FssAllBodiesFound_1.builder() // TODO: Other properties
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))
