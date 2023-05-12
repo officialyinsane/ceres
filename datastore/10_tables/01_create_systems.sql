@@ -6,6 +6,6 @@ create table `systems` (
     `x` float not null,
     `y` float not null,
     `z` float not null,
-    `name` varchar(50),
-    `starClass` varchar(2)
+    `name` varchar(50) null,
+    `starClass` varchar(2) null
 )
