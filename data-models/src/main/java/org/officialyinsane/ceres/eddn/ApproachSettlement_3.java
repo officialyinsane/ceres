@@ -14,7 +14,7 @@ public class ApproachSettlement_3 extends AbstractEddnEntity { // TODO: Other pr
     private String bodyName;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private long marketId;
+    private Long marketId;
     private long systemAddress;
     private StarPos position;
     private String systemName;
