@@ -39,12 +39,12 @@ public class ExceptionProcessor {
         StringBuffer buf = new StringBuffer("{\"message\":" + input);
         buf.append(",\"error\":{")
                 .append("\"message\":\"")
-                .append(e.getLocalizedMessage())
-                .append("\"},\"stacktrace\":{");
-        stream(e.getStackTrace())
-                .map(el -> "\"class\":\"" + el.getClassName() + "\",\"line\":\"" + el.getLineNumber() + "\"")
-                .forEach(buf::append);
-        buf.append("}");
+                .append(e.getLocalizedMessage()) // TODO: This needs escaping
+                .append("\"},\"stacktrace\":[{");
+        buf.append(stream(e.getStackTrace())
+                .map(el -> "\"class\":\"" + el.getClassName() + "\",\"line\":\"" + el.getLineNumber() + "\"}")
+                .collect(joining(",")));
+        buf.append("}]}");
 
         return buf.toString();
     }
@@ -59,7 +59,7 @@ public class ExceptionProcessor {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(buf.getBytes());
 
-            StringBuffer output = new StringBuffer();
+            StringBuilder output = new StringBuilder();
             for (byte b : digest.digest())
                 output.append(String.format("%02x", b));
 
