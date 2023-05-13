@@ -2,7 +2,6 @@ package org.officialyinsane.ceres.ingestor.processor.eddn;
 
 import com.google.gson.JsonParser;
 import lombok.val;
-import org.officialyinsane.ceres.eddn.CodexEntry_1;
 import org.officialyinsane.ceres.eddn.FssAllBodiesFound_1;
 import org.officialyinsane.ceres.eddn.Star;
 import org.officialyinsane.ceres.ingestor.writer.StarPositionWriter;

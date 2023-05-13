@@ -4,6 +4,8 @@ import com.google.gson.JsonParser;
 import lombok.val;
 import org.officialyinsane.ceres.eddn.ApproachSettlement_3;
 import org.officialyinsane.ceres.eddn.Star;
+import org.officialyinsane.ceres.entity.Market;
+import org.officialyinsane.ceres.ingestor.writer.MarketWriter;
 import org.officialyinsane.ceres.ingestor.writer.StarPositionWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
 
     @Autowired
     private StarPositionWriter starPositionWriter;
+
+    @Autowired
+    private MarketWriter marketWriter;
 
     @Override
     public void process(String name, String version, String input) throws Exception {
@@ -25,6 +30,16 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
                 .starPos(message.getPosition())
                 .build());
 
+        if (message.getMarketId() != null) {
+            marketWriter.write(Market.builder()
+                    .marketId(message.getMarketId())
+                    .systemAddress(message.getSystemAddress())
+                    .bodyId(message.getBodyId())
+                    .latitude(message.getLatitude())
+                    .longitude(message.getLongitude())
+                    .name(message.getMarketName())
+                    .build());
+        }
         // TODO: Write the market, POI (lat/long)
     }
 

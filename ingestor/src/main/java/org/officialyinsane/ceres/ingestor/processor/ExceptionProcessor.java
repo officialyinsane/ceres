@@ -36,17 +36,15 @@ public class ExceptionProcessor {
     }
 
     private String getErrorMessage(String input, Exception e) {
-        StringBuffer buf = new StringBuffer("{\"message\":" + input);
-        buf.append(",\"error\":{")
-                .append("\"message\":\"")
-                .append(e.getLocalizedMessage()) // TODO: This needs escaping
-                .append("\"},\"stacktrace\":[{");
-        buf.append(stream(e.getStackTrace())
-                .map(el -> "\"class\":\"" + el.getClassName() + "\",\"line\":\"" + el.getLineNumber() + "\"}")
-                .collect(joining(",")));
-        buf.append("}]}");
 
-        return buf.toString();
+        return "{\"message\":" + input + ",\"error\":{" +
+                "\"message\":\"" +
+                e.getLocalizedMessage() + // TODO: This needs escaping
+                "\"},\"stacktrace\":[" +
+                stream(e.getStackTrace())
+                        .map(el -> "{\"class\":\"" + el.getClassName() + "\",\"line\":\"" + el.getLineNumber() + "\"}")
+                        .collect(joining(",")) +
+                "]}";
     }
 
     protected static String getCheckSumFor(Exception e) {

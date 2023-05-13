@@ -1,5 +1,6 @@
 package org.officialyinsane.ceres.eddn;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.math.BigDecimal;
@@ -21,6 +22,18 @@ public abstract class AbstractEddnEntity {
     public static Long getAsLong(JsonObject obj, String key, Long defaultValue) {
         if (obj.has(key))
             return obj.get(key).getAsLong();
+        return defaultValue;
+    }
+
+    public static Integer getAsInteger(JsonObject obj, String key, Integer defaultValue) {
+        if (obj.has(key))
+            return obj.get(key).getAsInt();
+        return defaultValue;
+    }
+
+    public static JsonArray getAsJsonArray(JsonObject obj, String key, JsonArray defaultValue) {
+        if (obj.has(key))
+            return obj.get(key).getAsJsonArray();
         return defaultValue;
     }
 }

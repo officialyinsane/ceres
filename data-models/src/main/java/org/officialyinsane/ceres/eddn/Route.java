@@ -4,11 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class Route extends AbstractEddnEntity{

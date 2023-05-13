@@ -19,7 +19,7 @@ public class UnknownEddnMessageProcessor extends EddnMessageProcessor {
         File f = new File (PATH_PREFIX + name + "/" + version + PATH_SUFFIX);
 
         if (f.exists()) {
-            log.info("Refusing due to file exists: {} {}", f.getAbsolutePath(), input);
+            //log.info("Refusing due to file exists: {} {}", f.getAbsolutePath(), input); // TODO: Make this configurable
             return;
         }
         try {

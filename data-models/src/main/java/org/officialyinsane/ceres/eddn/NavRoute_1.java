@@ -3,8 +3,10 @@ package org.officialyinsane.ceres.eddn;
 import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.val;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class NavRoute_1 extends AbstractEddnEntity {

@@ -25,7 +25,7 @@ public class EddnMessageDifferenceProcessor extends EddnMessageProcessor {
         File f = new File (PATH_PREFIX + name + "/" + version + "_dir/" + checksum + PATH_SUFFIX);
 
         if (f.exists()) {
-            log.info("Refusing due to file exists: {}, {}", f.getAbsolutePath(), input);
+            // log.info("Refusing due to file exists: {}, {}", f.getAbsolutePath(), input); // TODO: Make this configurable
             return;
         }
         try {
@@ -42,7 +42,7 @@ public class EddnMessageDifferenceProcessor extends EddnMessageProcessor {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(str.getBytes());
 
-            StringBuffer output = new StringBuffer();
+            StringBuilder output = new StringBuilder();
             for (byte b : digest.digest())
                 output.append(String.format("%02x", b));
 

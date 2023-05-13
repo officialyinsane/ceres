@@ -3,7 +3,9 @@ package org.officialyinsane.ceres.eddn;
 import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class Star extends AbstractEddnEntity {

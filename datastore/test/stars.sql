@@ -9,6 +9,8 @@ select s.* from `ceres`.`systems` s
         and 40 < y > -40
         and 40 < z > -40;
 
-call rankStarsFrom(10477373803 /*Sol*/, 30, 45, 1000)
+call rankStarsFrom(10477373803 /*Sol*/, 30, 45, 1000);
 
-select 1
+select name, starClass, length(starClass) from ceres.systems
+    order by length(starClass) desc
+    limit 100

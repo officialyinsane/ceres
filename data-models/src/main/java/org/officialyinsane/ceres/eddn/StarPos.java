@@ -3,9 +3,11 @@ package org.officialyinsane.ceres.eddn;
 import com.google.gson.JsonArray;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class StarPos extends AbstractEddnEntity {

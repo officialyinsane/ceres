@@ -17,6 +17,7 @@
 
     <modules>
         <module>data-models</module>
+        <module>api</module>
         <module>ingestor</module>
     </modules>
 </project>

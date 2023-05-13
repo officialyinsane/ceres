@@ -3,9 +3,11 @@ package org.officialyinsane.ceres.eddn;
 import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 public class CodexEntry_1 extends AbstractEddnEntity { // TODO: Other properties
