@@ -43,8 +43,8 @@ public class EddnMessageDifferenceProcessor extends EddnMessageProcessor {
         obj.keySet().forEach( key -> {
             buf.append(key);
             JsonElement element = obj.get(key);
-            if (element.isJsonObject())
-                buf.append(appendKeys(obj));
+            if (element.isJsonObject() && !element.isJsonPrimitive() && !element.isJsonArray())
+                buf.append(appendKeys(element.getAsJsonObject()));
         });
         return buf.toString();
     }
