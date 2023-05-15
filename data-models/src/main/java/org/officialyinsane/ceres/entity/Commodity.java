@@ -50,8 +50,9 @@ public class Commodity {
     @Column(name = "stockBracket")
     private Integer stockBracket;
 
-    public static Commodity from(Commodity_1 c, Long marketId, String systemName, boolean isProhibited) {
+    public static Commodity from(Commodity_1 c, Long marketId, String systemName, boolean isProhibited, StarPosition star) {
         return Commodity.builder() // TODO: Look up the system address ?
+                .systemAddress(star == null ? null : star.getSystemAddress())
                 .marketCommodity(marketId + "_" + c.getName())
                 .marketId(marketId)
                 .isProhibited(isProhibited)

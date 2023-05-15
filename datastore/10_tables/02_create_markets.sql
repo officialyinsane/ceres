@@ -7,7 +7,9 @@ create table `markets` (
     `bodyId` int null,
     `name` varchar(255) null,
     `latitude` float null,
-    `longitude` float null
+    `longitude` float null,
+    `created` timestamp not null default current_timestamp,
+    `updated` timestamp not null default current_timestamp on update current_timestamp
 );
 
 create index `idx_market_system` on `ceres`.`markets`(`systemAddress`)

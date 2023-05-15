@@ -40,7 +40,7 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
                     .name(message.getMarketName())
                     .build());
         }
-        // TODO: Write the market, POI (lat/long)
+        // TODO: Write the POI (lat/long)
     }
 
     @Override

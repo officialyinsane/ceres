@@ -1,5 +1,6 @@
 package org.officialyinsane.ceres.ingestor.processor.eddn;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ public class EddnMessageDifferenceProcessor extends EddnMessageProcessor {
     public void process(String name, String version, String input) {
 
         JsonObject obj = JsonParser.parseString(input).getAsJsonObject();
-        String checksum = getCheckSumFor(String.join("", obj.keySet()));
+        String checksum = getCheckSumFor(appendKeys(obj));
         File f = new File (PATH_PREFIX + name + "/" + version + "_dir/" + checksum + PATH_SUFFIX);
 
         if (f.exists()) {
@@ -37,7 +38,18 @@ public class EddnMessageDifferenceProcessor extends EddnMessageProcessor {
         }
     }
 
-    protected static String getCheckSumFor(String str) {
+    private String appendKeys(JsonObject obj) {
+        StringBuffer buf = new StringBuffer();
+        obj.keySet().forEach( key -> {
+            buf.append(key);
+            JsonElement element = obj.get(key);
+            if (element.isJsonObject())
+                buf.append(appendKeys(obj));
+        });
+        return buf.toString();
+    }
+
+    private static String getCheckSumFor(String str) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.update(str.getBytes());

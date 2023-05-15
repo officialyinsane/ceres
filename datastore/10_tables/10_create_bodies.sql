@@ -26,5 +26,7 @@ create table bodies ( -- TODO: link to Material data from journal/1.json.json.js
     surfaceTemperature float null,
     terraformState varchar(50) null, -- TODO: Check datatype from journal/1.json.json.json.json.json.json.json.json.json.json.json.json when not empty string
     tidalLock bit null,
-    volcanism varchar(50) null -- TODO: Check datatype from journal/1.json.json.json.json.json.json.json.json.json.json.json.json when not empty string
+    volcanism varchar(50) null, -- TODO: Check datatype from journal/1.json.json.json.json.json.json.json.json.json.json.json.json when not empty string
+    `created` timestamp not null default current_timestamp,
+    `updated` timestamp not null default current_timestamp on update current_timestamp
 )

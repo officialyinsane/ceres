@@ -14,20 +14,32 @@ public abstract class AbstractEddnEntity {
     }
 
     public static BigDecimal getAsBigDecimal(JsonObject obj, String key, BigDecimal defaultValue) {
-        if (obj.has(key))
-            return obj.get(key).getAsBigDecimal();
+        try {
+            if (obj.has(key))
+                return obj.get(key).getAsBigDecimal();
+        } catch (NumberFormatException nfe) {
+            // nop
+        }
         return defaultValue;
     }
 
     public static Long getAsLong(JsonObject obj, String key, Long defaultValue) {
-        if (obj.has(key))
-            return obj.get(key).getAsLong();
+        try {
+            if (obj.has(key))
+                return obj.get(key).getAsLong();
+        } catch (NumberFormatException nfe) {
+            // nop
+        }
         return defaultValue;
     }
 
     public static Integer getAsInteger(JsonObject obj, String key, Integer defaultValue) {
-        if (obj.has(key))
-            return obj.get(key).getAsInt();
+        try{
+            if (obj.has(key))
+                return obj.get(key).getAsInt();
+        } catch (NumberFormatException nfe) {
+            // nop
+        }
         return defaultValue;
     }
 
