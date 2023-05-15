@@ -1,8 +1,6 @@
 select count(*) from ceres.markets;
 
-select * from ceres.markets where longitude is null
+select * from ceres.markets
 
-3790415616
-3845969408
-3912925952
-3926625280
+
+select * from ceres.markets where name = 'Swanson Port'
