@@ -2,7 +2,7 @@ use ceres;
 
 drop table if exists `commodities`;
 create table `commodities` (
-    marketCommodity varchar(255) not null primary key,
+    `marketCommodity` varchar(255) not null primary key,
     `marketId` bigint,
     `systemAddress` bigint,
     `isProhibited` bit default false,
@@ -18,5 +18,7 @@ create table `commodities` (
     `updated` timestamp not null default current_timestamp on update current_timestamp
 );
 
-create index `idx_commoddity_market` on `ceres`.`commodities`(`marketId`);
-create index `idx_commoddity_system` on `ceres`.`commodities`(`systemAddress`);
+create index `idx_commodity_market` on `ceres`.`commodities`(`marketId`);
+create index `idx_commodity_system` on `ceres`.`commodities`(`systemAddress`);
+create index `idx_commodity_created` on `ceres`.`commodities`(`created`);
+create index `idx_commodity_updated` on `ceres`.`commodities`(`updated`);

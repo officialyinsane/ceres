@@ -1,65 +1,38 @@
 use ceres;
 
 create or replace view `ceres`.`v_status` as
-    select
-        count(*) `count`, 'system_5_minute' `label` from `ceres`.`systems` `sys5`
-    where sys5.created >= date_add(current_timestamp, interval -5 minute)
-    union all
-    select
-        count(*) `count`, 'system_10_minute' `label` from `ceres`.`systems` `sys`
-    where sys.created >= date_add(current_timestamp, interval -10 minute)
-    union all
-    select
-        count(*) `count`, 'system_15_minute' `label` from `ceres`.`systems` `sys`
-    where sys.created >= date_add(current_timestamp, interval -15 minute)
-    union all
-    select
-        count(*) `count`, 'system_1_day' `label` from `ceres`.`systems` `sys`
-    where sys.created >= date_add(current_timestamp, interval -1 day)
-    union all
-    select
-        count(*) `count`, 'system_30_day' `label` from `ceres`.`systems` `sys`
-    where sys.created >= date_add(current_timestamp, interval -30 day)
-    union all
-    select
-        count(*) `count`, 'market_5_minute' `label` from `ceres`.`markets` `m`
-    where m.created >= date_add(current_timestamp, interval -5 minute)
-    union all
-    select
-        count(*) `count`, 'market_10_minute' `label` from `ceres`.`markets` `m`
-    where m.created >= date_add(current_timestamp, interval -10 minute)
-    union all
-    select
-        count(*) `count`, 'market_15_minute' `label` from `ceres`.`markets` `m`
-    where m.created >= date_add(current_timestamp, interval -15 minute)
-    union all
-    select
-        count(*) `count`, 'market_1_day' `label` from `ceres`.`markets` `m`
-    where m.created >= date_add(current_timestamp, interval -1 day)
-    union all
-    select
-        count(*) `count`, 'market_30_day' `label` from `ceres`.`markets` `m`
-    where m.created >= date_add(current_timestamp, interval -30 day)
-    union all
-    select
-        count(*) `count`, 'commodity_5_minute' `label` from `ceres`.`commodities` `c`
-    where c.created >= date_add(current_timestamp, interval -5 minute)
-    union all
-    select
-        count(*) `count`, 'commodity_10_minute' `label` from `ceres`.`commodities` `c`
-    where c.created >= date_add(current_timestamp, interval -10 minute)
-    union all
-    select
-        count(*) `count`, 'commodity_15_minute' `label` from `ceres`.`commodities` `c`
-    where c.created >= date_add(current_timestamp, interval -15 minute)
-    union all
-    select
-        count(*) `count`, 'commodity_1_day' `label` from `ceres`.`commodities` `c`
-    where c.created >= date_add(current_timestamp, interval -1 day)
-    union all
-    select
-        count(*) `count`, 'commodity_30_day' `label` from `ceres`.`commodities` `c`
-    where c.created >= date_add(current_timestamp, interval -30 day)
-;
 
-select * from ceres.v_status
+    select
+        'systems' `label`,
+        count(*) `total`,
+        sum(created >= date_add(current_timestamp, interval -5 minute)) `5min`,
+        sum(created >= date_add(current_timestamp, interval -10 minute)) `10min`,
+        sum(created >= date_add(current_timestamp, interval -15 minute)) `15min`,
+        sum(created >= date_add(current_timestamp, interval -1 day)) `day`,
+        sum(created >= date_add(current_timestamp, interval -30 day)) `30day`,
+        sum(created >= date_add(current_timestamp, interval -60 day)) `60day`,
+        sum(created >= date_add(current_timestamp, interval -90 day)) `90day`
+    from ceres.systems
+    union all select
+        'markets' `label`,
+        count(*) `total`,
+        sum(created >= date_add(current_timestamp, interval -5 minute)) `5min`,
+        sum(created >= date_add(current_timestamp, interval -10 minute)) `10min`,
+        sum(created >= date_add(current_timestamp, interval -15 minute)) `15min`,
+        sum(created >= date_add(current_timestamp, interval -1 day)) `day`,
+        sum(created >= date_add(current_timestamp, interval -30 day)) `30day`,
+        sum(created >= date_add(current_timestamp, interval -60 day)) `60day`,
+        sum(created >= date_add(current_timestamp, interval -90 day)) `90day`
+    from ceres.markets
+    union all select
+        'commodities' `label`,
+        count(*) `total`,
+        sum(created >= date_add(current_timestamp, interval -5 minute)) `5min`,
+        sum(created >= date_add(current_timestamp, interval -10 minute)) `10min`,
+        sum(created >= date_add(current_timestamp, interval -15 minute)) `15min`,
+        sum(created >= date_add(current_timestamp, interval -1 day)) `day`,
+        sum(created >= date_add(current_timestamp, interval -30 day)) `30day`,
+        sum(created >= date_add(current_timestamp, interval -60 day)) `60day`,
+        sum(created >= date_add(current_timestamp, interval -90 day)) `90day`
+    from ceres.commodities
+;

@@ -24,12 +24,12 @@ public class ApproachSettlement_3 extends AbstractEddnEntity { // TODO: Other pr
 
     public static ApproachSettlement_3 fromJsonObject(JsonObject obj) throws Exception {
         return ApproachSettlement_3.builder()
-                .bodyId(getAsInteger(obj, "BodyID", null))
-                .bodyName(getAsString(obj, "BodyName", null))
-                .latitude(getAsBigDecimal(obj,"Latitude", null))
-                .longitude(getAsBigDecimal(obj,"Longitude", null))
-                .marketId(getAsLong(obj, "MarketID", null))
-                .marketName(getAsString(obj, "Name", null))
+                .bodyId(getAsInteger(obj, "BodyID"))
+                .bodyName(getAsString(obj, "BodyName"))
+                .latitude(getAsBigDecimal(obj,"Latitude"))
+                .longitude(getAsBigDecimal(obj,"Longitude"))
+                .marketId(getAsLong(obj, "MarketID"))
+                .marketName(getAsString(obj, "Name"))
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))
                 .systemName(obj.get("StarSystem").getAsString())

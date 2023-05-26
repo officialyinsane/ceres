@@ -21,9 +21,9 @@ public class CodexEntry_1 extends AbstractEddnEntity { // TODO: Other properties
 
     public static CodexEntry_1 fromJsonObject(JsonObject obj) throws Exception {
         return CodexEntry_1.builder() // TODO: Other properties
-                .bodyName(getAsString(obj, "BodyName", null))
-                .latitude(getAsBigDecimal(obj, "Latitude", null))
-                .latitude(getAsBigDecimal(obj, "Longitude", null))
+                .bodyName(getAsString(obj, "BodyName"))
+                .latitude(getAsBigDecimal(obj, "Latitude"))
+                .latitude(getAsBigDecimal(obj, "Longitude"))
                 .systemAddress(obj.get("SystemAddress").getAsLong())
                 .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))
                 .systemName(obj.get("System").getAsString())

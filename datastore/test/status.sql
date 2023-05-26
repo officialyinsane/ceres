@@ -1,0 +1,1 @@
+select * from ceres.v_status

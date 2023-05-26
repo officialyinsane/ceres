@@ -17,8 +17,8 @@ public class Economy_1 extends AbstractEddnEntity {
     public static Economy_1 fromJsonElement(JsonElement e) {
         JsonObject obj = e.getAsJsonObject();
         return Economy_1.builder()
-                .name(getAsString(obj, "name", null))
-                .proportion(getAsInteger(obj, "proportion", null))
+                .name(getAsString(obj, "name"))
+                .proportion(getAsInteger(obj, "proportion"))
                 .build();
     }
 }

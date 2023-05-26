@@ -21,14 +21,14 @@ public class Commodity_1 extends AbstractEddnEntity {
     public static Commodity_1 fromJsonElement(JsonElement e) {
         JsonObject obj = e.getAsJsonObject();
         return Commodity_1.builder()
-                .buyPrice(getAsInteger(obj, "buyPrice", null))
-                .demand(getAsInteger(obj, "demand", null))
-                .demandBracket(getAsInteger(obj, "demandBracket", null))
-                .meanPrice(getAsInteger(obj, "meanPrice", null))
-                .name(getAsString(obj, "name", null))
-                .sellPrice(getAsInteger(obj, "sellPrice", null))
-                .stock(getAsInteger(obj, "stock", null))
-                .stockBracket(getAsInteger(obj, "stockBracket", null))
+                .buyPrice(getAsInteger(obj, "buyPrice"))
+                .demand(getAsInteger(obj, "demand"))
+                .demandBracket(getAsInteger(obj, "demandBracket"))
+                .meanPrice(getAsInteger(obj, "meanPrice"))
+                .name(getAsString(obj, "name"))
+                .sellPrice(getAsInteger(obj, "sellPrice"))
+                .stock(getAsInteger(obj, "stock"))
+                .stockBracket(getAsInteger(obj, "stockBracket"))
                 .build();
     }
 }
