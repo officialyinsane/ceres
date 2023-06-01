@@ -32,7 +32,7 @@ public class CommodityMessageProcessor extends EddnMessageProcessor {
 
         val star = starRepository.findByName(message.getSystemName());
 
-        if (message.getMarketId() != null && message.getMarketId() > 0) {
+        if (message.getMarketId() != null && star.isPresent()) {
             marketWriter.write(Market.builder()
                     .marketId(message.getMarketId())
                     .name(message.getStationName())

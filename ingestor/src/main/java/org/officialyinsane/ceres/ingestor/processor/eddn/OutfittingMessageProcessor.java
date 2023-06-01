@@ -5,6 +5,7 @@ import lombok.val;
 import org.officialyinsane.ceres.eddn.Outfitting_2;
 import org.officialyinsane.ceres.entity.Market;
 import org.officialyinsane.ceres.ingestor.writer.MarketWriter;
+import org.officialyinsane.ceres.ingestor.writer.repository.StarPositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,21 @@ public class OutfittingMessageProcessor extends EddnMessageProcessor {
     @Autowired
     private MarketWriter marketWriter;
 
+    @Autowired
+    private StarPositionRepository starRepository;
+
     @Override
     public void process(String name, String version, String input) throws Exception {
         val event = JsonParser.parseString(input).getAsJsonObject();
         val message = Outfitting_2.fromJsonObject(event.get("message").getAsJsonObject());
 
-        marketWriter.write(Market.builder()
+        val system = starRepository.findByName(message.getSystemName());
+
+        if (message.getMarketId() != null && system.isPresent())
+            marketWriter.write(Market.builder()
                 .marketId(message.getMarketId())
                 .name(message.getStationName())
+                .systemAddress(system.get().getSystemAddress())
                 .build());
     }
 
