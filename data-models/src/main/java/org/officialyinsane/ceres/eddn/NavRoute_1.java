@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.val;
 
 @EqualsAndHashCode(callSuper = true)
 @Builder
