@@ -29,14 +29,14 @@ public class Commodity_3 extends AbstractEddnEntity { // TODO: Other properties
                         .stream()
                         .map(Commodity_1::fromJsonElement)
                         .collect(toList()))
-                .economy1List(getAsJsonArray(obj, "economies")
+                .economy1List(getAsJsonArray(obj, "economies") // TODO: Write the economies
                         .asList()
                         .stream()
                         .map(Economy_1::fromJsonElement)
                         .collect(toList()))
                 .stationName(getAsString(obj, "stationName"))
                 .systemName(getAsString(obj, "systemName"))
-                .prohibitions(getAsJsonArray(obj, "prohibited")
+                .prohibitions(getAsJsonArray(obj, "prohibited") // TODO: Write the prohibitions
                         .asList().stream()
                         .map(JsonElement::getAsString)
                         .collect(toList()))

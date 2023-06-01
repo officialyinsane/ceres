@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
-public class ApproachSettlement_3 extends AbstractEddnEntity { // TODO: Other properties
+public class ApproachSettlement_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private Integer bodyId;
     private String bodyName;
@@ -18,14 +18,14 @@ public class ApproachSettlement_3 extends AbstractEddnEntity { // TODO: Other pr
     private BigDecimal longitude;
     private Long marketId;
     private String marketName;
-    private long systemAddress;
     private StarPos position;
+    private long systemAddress;
     private String systemName;
 
-    public static ApproachSettlement_3 fromJsonObject(JsonObject obj) throws Exception {
-        return ApproachSettlement_3.builder()
+    public static ApproachSettlement_1 fromJsonObject(JsonObject obj) throws Exception {
+        return ApproachSettlement_1.builder()
                 .bodyId(getAsInteger(obj, "BodyID"))
-                .bodyName(getAsString(obj, "BodyName"))
+                .bodyName(getAsString(obj, "BodyName")) // TODO: Write bodies
                 .latitude(getAsBigDecimal(obj,"Latitude"))
                 .longitude(getAsBigDecimal(obj,"Longitude"))
                 .marketId(getAsLong(obj, "MarketID"))

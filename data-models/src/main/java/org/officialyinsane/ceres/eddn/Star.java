@@ -13,14 +13,14 @@ public class Star extends AbstractEddnEntity {
     private String starClass;
     private StarPos starPos;
     private String starSystem;
-    private long systemAddress;
+    private Long systemAddress;
 
-    public static Star fromJsonObject(JsonObject star) {
+    public static Star fromJsonObject(JsonObject obj) {
         return Star.builder()
-                .starClass(star.get("StarClass").getAsString())
-                .starSystem(star.get("StarSystem").getAsString())
-                .systemAddress(star.get("SystemAddress").getAsLong())
-                .starPos(StarPos.fromJsonArray(star.get("StarPos").getAsJsonArray()))
+                .starClass(getAsString(obj, "StarClass"))
+                .starSystem(getAsString(obj, "StarSystem"))
+                .systemAddress(getAsLong(obj, "SystemAddress"))
+                .starPos(StarPos.fromJsonArray(getAsJsonArray(obj, "StarPos")))
                 .build();
     }
 }

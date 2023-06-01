@@ -11,14 +11,14 @@ import lombok.EqualsAndHashCode;
 public class FssSignalDiscovered_1 extends AbstractEddnEntity { // TODO: Other properties
 
     private String systemName;
-    private long systemAddress;
+    private Long systemAddress;
     private StarPos position;
 
     public static FssSignalDiscovered_1 fromJsonObject(JsonObject obj) throws Exception {
         return FssSignalDiscovered_1.builder() // TODO: Other properties
-                .systemAddress(obj.get("SystemAddress").getAsLong())
-                .position(StarPos.fromJsonArray(obj.get("StarPos").getAsJsonArray()))
-                .systemName(obj.get("StarSystem").getAsString())
+                .systemAddress(getAsLong(obj, "SystemAddress"))
+                .position(StarPos.fromJsonArray(getAsJsonArray(obj, "StarPos")))
+                .systemName(getAsString(obj, "StarSystem"))
                 .build();
     }
 }

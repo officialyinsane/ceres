@@ -2,7 +2,7 @@ package org.officialyinsane.ceres.ingestor.processor.eddn;
 
 import com.google.gson.JsonParser;
 import lombok.val;
-import org.officialyinsane.ceres.eddn.ApproachSettlement_3;
+import org.officialyinsane.ceres.eddn.ApproachSettlement_1;
 import org.officialyinsane.ceres.eddn.Star;
 import org.officialyinsane.ceres.entity.Market;
 import org.officialyinsane.ceres.ingestor.writer.MarketWriter;
@@ -22,7 +22,7 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
     @Override
     public void process(String name, String version, String input) throws Exception {
         val event = JsonParser.parseString(input).getAsJsonObject();
-        val message = ApproachSettlement_3.fromJsonObject(event.get("message").getAsJsonObject());
+        val message = ApproachSettlement_1.fromJsonObject(event.get("message").getAsJsonObject());
 
         starPositionWriter.write(Star.builder()
                 .starSystem(message.getSystemName())
