@@ -4,7 +4,9 @@ import com.google.gson.JsonParser;
 import lombok.val;
 import org.officialyinsane.ceres.eddn.Journal_1;
 import org.officialyinsane.ceres.eddn.Star;
+import org.officialyinsane.ceres.entity.Body;
 import org.officialyinsane.ceres.entity.Market;
+import org.officialyinsane.ceres.ingestor.writer.BodyWriter;
 import org.officialyinsane.ceres.ingestor.writer.MarketWriter;
 import org.officialyinsane.ceres.ingestor.writer.StarPositionWriter;
 import org.officialyinsane.ceres.ingestor.writer.repository.StarPositionRepository;
@@ -21,7 +23,7 @@ public class JournalMessageProcessor extends EddnMessageProcessor {
     private StarPositionWriter starWriter;
 
     @Autowired
-    private StarPositionRepository starRepository;
+    private BodyWriter bodyWriter;
 
     @Override
     public void process(String name, String version, String input) throws Exception {
@@ -34,12 +36,19 @@ public class JournalMessageProcessor extends EddnMessageProcessor {
                 .starPos(message.getStarPos())
                 .build());
 
-        val system = starRepository.findByName(message.getSystemName());
-        if (message.getMarketId() != null && system.isPresent())
+        if (message.getBodyId() != null)
+            bodyWriter.write(Body.builder()
+                .identity(message.getSystemAddress() + "_" + message.getBodyId())
+                .bodyId(message.getBodyId())
+                .name(message.getBodyName())
+                .systemAddress(message.getSystemAddress())
+                .build());
+
+        if (message.getMarketId() != null && message.getSystemAddress() != null)
             marketWriter.write(Market.builder()
                 .marketId(message.getMarketId())
                 .name(message.getStationName())
-                .systemAddress(system.get().getSystemAddress())
+                .systemAddress(message.getSystemAddress())
                 .build());
     }
 

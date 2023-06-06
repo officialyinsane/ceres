@@ -1,6 +1,7 @@
 package org.officialyinsane.ceres.ingestor.writer;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.officialyinsane.ceres.eddn.Star;
 import org.officialyinsane.ceres.entity.StarPosition;
 import org.officialyinsane.ceres.ingestor.writer.repository.StarPositionRepository;
@@ -15,6 +16,13 @@ public class StarPositionWriter {
     private StarPositionRepository repository;
 
     public void write(Star star) throws Exception {
+
+        if (star.getStarClass() == null) {
+            if (repository.findById(star.getSystemAddress()).isPresent()) {
+                return;
+            }
+        }
+
         log.info("Saving {}", star);
         repository.save(StarPosition.builder()
                 .systemAddress(star.getSystemAddress())

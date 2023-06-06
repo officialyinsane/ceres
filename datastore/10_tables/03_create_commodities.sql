@@ -18,7 +18,7 @@ create table `commodities` (
     `updated` timestamp not null default current_timestamp on update current_timestamp
 );
 
-create index `idx_commodity_market` on `ceres`.`commodities`(`marketId`);
-create index `idx_commodity_system` on `ceres`.`commodities`(`systemAddress`);
-create index `idx_commodity_created` on `ceres`.`commodities`(`created`);
-create index `idx_commodity_updated` on `ceres`.`commodities`(`updated`);
+create index if not exists `idx_commodity_market` on `ceres`.`commodities`(`marketId`);
+create index if not exists `idx_commodity_system` on `ceres`.`commodities`(`systemAddress`);
+create index if not exists `idx_commodity_created` on `ceres`.`commodities`(`created`);
+create index if not exists `idx_commodity_updated` on `ceres`.`commodities`(`updated`);

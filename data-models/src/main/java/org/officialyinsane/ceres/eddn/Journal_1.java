@@ -10,6 +10,8 @@ import lombok.EqualsAndHashCode;
 @Data
 public class Journal_1 extends AbstractEddnEntity {
 
+    private Integer bodyId;
+    private String bodyName;
     private Long marketId;
     private StarPos starPos;
     private String systemName;

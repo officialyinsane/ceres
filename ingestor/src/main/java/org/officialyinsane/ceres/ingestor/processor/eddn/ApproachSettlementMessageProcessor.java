@@ -4,7 +4,9 @@ import com.google.gson.JsonParser;
 import lombok.val;
 import org.officialyinsane.ceres.eddn.ApproachSettlement_1;
 import org.officialyinsane.ceres.eddn.Star;
+import org.officialyinsane.ceres.entity.Body;
 import org.officialyinsane.ceres.entity.Market;
+import org.officialyinsane.ceres.ingestor.writer.BodyWriter;
 import org.officialyinsane.ceres.ingestor.writer.MarketWriter;
 import org.officialyinsane.ceres.ingestor.writer.StarPositionWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
 
     @Autowired
     private StarPositionWriter starPositionWriter;
+
+    @Autowired
+    private BodyWriter bodyWriter;
 
     @Autowired
     private MarketWriter marketWriter;
@@ -28,6 +33,13 @@ public class ApproachSettlementMessageProcessor extends EddnMessageProcessor {
                 .starSystem(message.getSystemName())
                 .systemAddress(message.getSystemAddress())
                 .starPos(message.getPosition())
+                .build());
+
+        bodyWriter.write(Body.builder()
+                .identity(message.getSystemAddress() + "_" + message.getBodyId())
+                .bodyId(message.getBodyId())
+                .name(message.getBodyName())
+                .systemAddress(message.getSystemAddress())
                 .build());
 
         if (message.getMarketId() != null) {

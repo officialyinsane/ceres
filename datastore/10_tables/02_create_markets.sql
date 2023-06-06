@@ -12,4 +12,6 @@ create table `markets` (
     `updated` timestamp not null default current_timestamp on update current_timestamp
 );
 
-create index `idx_market_system` on `ceres`.`markets`(`systemAddress`)
+create index if not exists `idx_market_system` on `ceres`.`markets`(`systemAddress`);
+create index if not exists `idx_market_created` on `ceres`.`markets`(`created`);
+create index if not exists `idx_market_updated` on `ceres`.`markets`(`updated`);

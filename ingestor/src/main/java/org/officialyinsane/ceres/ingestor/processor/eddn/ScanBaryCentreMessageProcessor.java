@@ -4,6 +4,8 @@ import com.google.gson.JsonParser;
 import lombok.val;
 import org.officialyinsane.ceres.eddn.ScanBaryCentre_1;
 import org.officialyinsane.ceres.eddn.Star;
+import org.officialyinsane.ceres.entity.Body;
+import org.officialyinsane.ceres.ingestor.writer.BodyWriter;
 import org.officialyinsane.ceres.ingestor.writer.StarPositionWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class ScanBaryCentreMessageProcessor extends EddnMessageProcessor {
     @Autowired
     private StarPositionWriter starPositionWriter;
 
+    @Autowired
+    private BodyWriter bodyWriter;
+
     @Override
     public void process(String name, String version, String input) throws Exception {
         val event = JsonParser.parseString(input).getAsJsonObject();
@@ -23,6 +28,15 @@ public class ScanBaryCentreMessageProcessor extends EddnMessageProcessor {
                 .starSystem(message.getSystemName())
                 .systemAddress(message.getSystemAddress())
                 .starPos(message.getPosition())
+                .build());
+
+
+        if (message.getBodyId() != null && message.getBodyName() != null)
+            bodyWriter.write(Body.builder()
+                .identity(message.getSystemAddress() + "_" + message.getBodyId())
+                .bodyId(message.getBodyId())
+                .name(message.getBodyName())
+                .systemAddress(message.getSystemAddress())
                 .build());
 
         // TODO: Write the other data
