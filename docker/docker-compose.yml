@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./configuration/nginx/nginx-root.conf:/etc/nginx/nginx.conf:ro
-      - ./configuration/nginx/generic-conf:/etc/nginx/conf.d:ro
+      - ./configuration/nginx/generic-conf:/etc/nginx/conf.d:rw
       - ./configuration/nginx/containers:/etc/nginx/conf.d/containers:rw
       #- ./configuration/nginx/letsencrypt/:/etc/nginx/conf.d/letsencrypt:ro
       #- ./configuration/nginx/keys:/etc/nginx/keys:ro
