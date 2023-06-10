@@ -49,6 +49,26 @@ services:
       - ./data/unknown:/tmp/ingestor/unknown:rw
       - ./data/problems:/tmp/ingestor/problems:rw
 
+  http-ingress-standard:
+    container_name: ingress
+    ## TODO: tag this image locally
+    image: nginx:latest
+    ports:
+      - 80:80
+    ## TODO: Add certbot for HTTPS
+    #  - 443:443
+    restart: unless-stopped
+    volumes:
+      - ./configuration/nginx/nginx-root.conf:/etc/nginx/nginx.conf:ro
+      - ./configuration/nginx/generic-conf:/etc/nginx/conf.d:ro
+      - ./configuration/nginx/containers:/etc/nginx/conf.d/containers:rw
+      #- ./configuration/nginx/letsencrypt/:/etc/nginx/conf.d/letsencrypt:ro
+      #- ./configuration/nginx/keys:/etc/nginx/keys:ro
+      #- ./configuration/certbot/www:/var/www/certbot
+      # - ./configuration/certbot/conf:/etc/certbot
+      - /etc/httpd/www:/var/www:ro
+
+
   stag-ingestor:
     container_name: ingestor
     environment:
@@ -60,6 +80,16 @@ services:
       - ./data/unknown:/tmp/ingestor/unknown:rw
       - ./data/problems:/tmp/ingestor/problems:rw
 
+  nexus:
+    container_name: nexus
+    depends_on:
+      - http-ingress-standard
+    ## TODO: tag this image locally
+    image: sonatype/nexus3:latest
+    restart: unless-stopped
+    volumes:
+      - nexus_data:/nexus-data
+
   prod-ingestor:
     container_name: ingestor
     environment:
@@ -69,6 +99,9 @@ services:
     volumes:
       - ./data/unknown:/tmp/ingestor/unknown:rw
       - ./data/problems:/tmp/ingestor/problems:rw
+
+volumes:
+  nexus_data:
 
 networks:
   test-backend:
