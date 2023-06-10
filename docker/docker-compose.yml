@@ -87,6 +87,9 @@ services:
     ## TODO: tag this image locally
     image: sonatype/nexus3:latest
     restart: unless-stopped
+    # ports:
+    # - 5000:5000 # docker-group repo
+    # - 6000:6000 # docker-hosted repo
     volumes:
       - nexus_data:/nexus-data
 
